@@ -2,7 +2,7 @@
 
 > [ch12-04-testing-the-librarys-functionality.md](https://github.com/rust-lang/book/blob/master/src/ch12-04-testing-the-librarys-functionality.md)
 > <br>
-> commit 1fedfc4b96c2017f64ecfcf41a0a07e2e815f24f
+> commit 0ca4b88f75f8579de87adc2ad36d340709f5ccad
 
 现在我们将逻辑提取到了 *src/lib.rs* 并将所有的参数解析和错误处理留在了 *src/main.rs* 中，为代码的核心功能编写测试将更加容易。我们可以直接使用多种参数调用函数并检查返回值而无需从命令行运行二进制文件了。如果你愿意的话，请自行为 `Config::new` 和 `run` 函数的功能编写一些测试。
 
@@ -24,7 +24,7 @@
 <span class="filename">文件名: src/lib.rs</span>
 
 ```rust
-# fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+# pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 #      vec![]
 # }
 #
@@ -57,7 +57,7 @@ Pick three.";
 <span class="filename">文件名: src/lib.rs</span>
 
 ```rust
-fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     vec![]
 }
 ```
@@ -137,7 +137,7 @@ Rust 有一个有助于一行一行遍历字符串的方法，出于方便它被
 <span class="filename">文件名: src/lib.rs</span>
 
 ```rust,ignore
-fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     for line in contents.lines() {
         // do something with line
     }
@@ -155,7 +155,7 @@ fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <span class="filename">文件名: src/lib.rs</span>
 
 ```rust,ignore
-fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     for line in contents.lines() {
         if line.contains(query) {
             // do something with line
@@ -173,7 +173,7 @@ fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
 <span class="filename">文件名: src/lib.rs</span>
 
 ```rust,ignore
-fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
+pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
     let mut results = Vec::new();
 
     for line in contents.lines() {
